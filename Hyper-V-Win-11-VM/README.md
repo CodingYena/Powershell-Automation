@@ -1,43 +1,44 @@
-# Hyper-V-Win-11-VM
-Creates a Win 11 VM with 8gb of RAM, 32GB Vhd via Hyper-V
+Hyper-V VM Creation Script
 
-Certainly! Here's a PowerShell script to create a new Hyper-V virtual machine with the specified configuration:
+This script allows you to create and configure a Hyper-V virtual machine (VM) using PowerShell and a graphical user interface (GUI). The script checks for the presence of the Hyper-V module, installs it if necessary, downloads the Windows 11 Pro ISO, creates a Hyper-V VM with specified parameters, and starts the VM.
+Prerequisites
 
-powershell
+    PowerShell version 3.0 or later
+    Windows operating system with Hyper-V support
+    Internet connectivity to download the Windows 11 Pro ISO
 
-# Define the VM configuration parameters
-$VMName = "MyNewVM"
-$RAMSizeGB = 8
-$DiskSizeGB = 32
-$ISOPath = "C:\path\to\windows11.iso"
+Installation and Usage
 
-# Create a new VM
-New-VM -Name $VMName -MemoryStartupBytes ($RAMSizeGB * 1GB)
+    Download the script from the repository or copy the script contents into a new file with a .ps1 extension.
 
-# Create a new virtual hard disk
-$VHDPath = "C:\path\to\$VMName.vhdx"
-New-VHD -Path $VHDPath -SizeBytes ($DiskSizeGB * 1GB) -Dynamic
+    Open a PowerShell session with administrative privileges.
 
-# Attach the virtual hard disk to the VM
-Add-VMHardDiskDrive -VMName $VMName -Path $VHDPath
+    Set the execution policy to allow running PowerShell scripts. Run the following command in the PowerShell session:
 
-# Set the DVD drive to use the Windows 11 ISO
-Set-VMDvdDrive -VMName $VMName -Path $ISOPath
+    javascript
 
-# Configure the boot order to start from the DVD drive
-Set-VMFirmware -VMName $VMName -FirstBootDevice (Get-VMDvdDrive -VMName $VMName)
+Set-ExecutionPolicy RemoteSigned
 
-# Start the VM
-Start-VM -VMName $VMName
+Navigate to the directory where the script file is located using the cd command.
 
-Make sure to replace the following parameters with your own values:
+Run the script by executing the following command:
 
-    $VMName: The desired name for your new virtual machine.
-    $RAMSizeGB: The amount of RAM (in gigabytes) to allocate to the virtual machine.
-    $DiskSizeGB: The desired size of the virtual hard disk (in gigabytes).
-    $ISOPath: The file path to the Windows 11 ISO file.
+    .\script.ps1
 
-This script creates a new Hyper-V virtual machine with the specified name, sets the RAM size, creates a new dynamically expanding virtual hard disk, attaches the virtual hard disk to the virtual machine, sets the DVD drive to use the Windows 11 ISO file, configures the boot order to start from the DVD drive, and finally starts the virtual machine.
+    The script will check if the Hyper-V module is installed and import it if necessary. It will then proceed to download the Windows 11 Pro ISO if it's not already downloaded.
 
-Please note that this script assumes you have Hyper-V installed and have the necessary permissions to create and configure virtual machines.
+    A GUI window will appear, allowing you to configure the VM parameters:
+        RAM (GB): Enter the amount of RAM to allocate to the VM in gigabytes.
+        VHD Storage (GB): Specify the size of the VM's virtual hard disk in gigabytes.
+        VM Name: Provide a name for the VM.
+        Switch Name: Enter the name of the virtual switch to connect the VM to.
 
+    Click the "Create VM" button to create the Hyper-V VM with the specified parameters. The script will start the VM automatically after creation.
+
+Important Note
+
+    Make sure to replace the placeholder URL "https://example.com/windows11pro.iso" in the DownloadWindows11ISO function with the actual download link for the Windows 11 Pro ISO. Ensure that the download link is valid and accessible.
+
+License
+
+This script is released under the MIT License. Feel free to modify and distribute it according to your requirements.
