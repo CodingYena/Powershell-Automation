@@ -15,9 +15,9 @@ Usage
 
     Execute the script by running the following command:
 
-    powershell
+    powershell  > .\chrome_installer.ps1
 
-.\chrome_installer.ps1
+
 
 Note: If you encounter an error related to the execution policy, you might need to change the execution policy to allow running PowerShell scripts. Run the following command in an elevated PowerShell session:
 
